@@ -66,7 +66,7 @@ const Enroll = () => {
     reference: new Date().getTime(),
     email: formData.email,
     amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: "sk_live_e69b15528bfb8f8a5905a07bf2263313aa26ae08", 
+    publicKey: "pk_live_185276b835464f18b9d118ef625714e653512423", 
   };
 
 
