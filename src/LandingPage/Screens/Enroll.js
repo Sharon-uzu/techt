@@ -8,19 +8,14 @@ import { FaArrowCircleLeft } from "react-icons/fa";
 import { Supabase } from "../../config/supabase-config";
 import {  useNavigate } from "react-router-dom";
 
-// paystack config
 import { 
-  // usePaystackPayment,
    PaystackButton } from "react-paystack";
 
 const Enroll = () => {
   const [email, setEmail] = useState('');
   const [amount, setAmount] = useState(0);
   const [pay, setPay] = useState(false);
-
-  // const handleEmailChange = (e) => {
-  //     setEmail(e.target.value);
-  //   };
+  const [selectedPayment, setSelectedPaymentText] = useState('');
 
   const initialValues = {
     fullname: "",
@@ -32,35 +27,17 @@ const Enroll = () => {
     schedule: "",
     session: "",
     batch: "",
+    payment:'',
     code: ""
   };
 
-  const referralCodes = ["REF123", "DISCOUNT40", "SAVE40", 'George-Tech', 'Bimsa-Tech', 'Leonard-Tech', 'Confi-Tech', 'Kobo-Tech', 'Jago-Tech', 'Emmy-Tech', 'Best-Tech', 'Mathew-Tech', 'Edisemi-Tech', 'Chioma-Tech', 'Vivy-Tech', 'Som-Tech', 'Joyce-Tech', 'Felly-Tech', 'Leslie-Tech', 'Kingsley-Tech', 'Pepple-Tech', 'Mike-Tech', 'Soky-Tech', 'Tuka-Tech', 'Ibim-Tech', 'Ndume-Tech', 'George-Tech', 'Ruth-Tech', 'Dorcas-Tech', 'Ola-Tech','Bethel-Tech', 'Fuby-Tech', 'Ice-Tech', 'Oluchi-Tech', 'Tammy-Tech', 'Roy-Tech', 'Nnah-Tech', 'Nwakanma-Tech', 'Anita-Tech']; // Array of valid referral codes
-
-
-  // const [inputValue, setInputValue] = useState("");
+  const referralCodes = ["REF123", "DISCOUNT40", "SAVE40", 'George-Tech', 'Bimsa-Tech', 'Leonard-Tech', 'Confi-Tech', 'Kobo-Tech', 'Jago-Tech', 'Emmy-Tech', 'Best-Tech', 'Mathew-Tech', 'Edisemi-Tech', 'Chioma-Tech', 'Vivy-Tech', 'Som-Tech', 'Joyce-Tech', 'Felly-Tech', 'Leslie-Tech', 'Kingsley-Tech', 'Pepple-Tech', 'Mike-Tech', 'Soky-Tech', 'Tuka-Tech', 'Ibim-Tech', 'Ndume-Tech', 'George-Tech', 'Ruth-Tech', 'Dorcas-Tech', 'Ola-Tech','Bethel-Tech', 'Fuby-Tech', 'Ice-Tech', 'Oluchi-Tech', 'Tammy-Tech', 'Roy-Tech', 'Nnah-Tech', 'Nwakanma-Tech', 'Anita-Tech', 'Fran-Tech','Chis-Tech', 'Felly-Tech', 'Brian-Tech', ];
 
   const navigate = useNavigate();
-  // const congrat = () => {
-  //   navigate("/Congrat");
-  // };
+ 
 
   const [formData, setFormData] = useState(initialValues);
-  // const [formErrors, setFormErrors] = useState({});
 
-  // const [isSubmit, setIsSubmit] = useState(false);
-
-  // const handleSubmit = (e) => {
-  //   setFormErrors(validate(formData));
-  //   setIsSubmit(true);
-  // };
-
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     console.log(formData);
-  //   }
-  // }, [formErrors]);
 
   const config = {
     reference: new Date().getTime(),
@@ -72,44 +49,14 @@ const Enroll = () => {
 
     const [inputValue, setInputValue] = useState("");
 
-    const handleInputChange = (e) => {
-        setInputValue(e.target.value);
-        // setAmountBasedOnpaymentPlan()
-    //     setFormData({
-    //   ...formData,
-    //   referralCode: event.target.value,
-    // });
-      };
+    // const handleInputChange = (e) => {
+    //     setInputValue(e.target.value);
+   
+    //   };
 
-  // const checkInputAgainstArray = (input) => {
-  //   return validCodes.some((value) => value === input);
+  //  const checkInputAgainstArray = (input) => {
+  //   return referralCodes.some((value) => value === input);
   // };
-
-   const checkInputAgainstArray = (input) => {
-    return referralCodes.some((value) => value === input);
-  };
-
-
-  // const dataBase = (values) => {
-    
-  //                   Supabase.from("techtan-reg")
-  //                     .upsert([
-  //                       {
-  //                         fullname: formData.fullname,
-  //                         email: formData.email,
-  //                         metadata: formData,
-  //                         code:inputValue
-  //                       },
-  //                     ])
-                      
-  //                     .then((response) => {
-  //                       console.log("inderted....")
-  //                       console.log(response);
-                        
-  //                       navigate("/");
-  //                     });
-  //                 }
-
 
   const dataBase = (values) => {
     
@@ -130,94 +77,15 @@ const Enroll = () => {
         navigate("/");
         });
       }
-                
 
+      const handleAmountChange = (e) => {  
+        setAmount(e.target.value);  
+        setFormData({  
+          ...formData,  
+          amount: e.target.value,  
+        });  
+      };  
 
-  // const dataBase = (e) => {
-    
-  //   Supabase.from("techtan")
-  //     .upsert([
-  //       {
-  //         fullname: formData.fullname,
-  //         email: formData.email,
-  //         amount: amount,
-  //         metadata: formData,
-  //       },
-  //     ])
-  //     .then((response) => {
-  //       console.log(response);
-  //       navigate("/");
-  //     });
-  // };
-
-  // you can call this function anything
-  // const onSuccess = (reference) => {
-  //   // Implementation for whatever you want to do with reference and after success call.
-  //   console.log(reference);
-  //   dataBase();
-  // };
-
-  // you can call this function anything
-  // const onClose = () => {
-  //   // implementation for  whatever you want to do when the Paystack dialog closed.
-  //   console.log("closed");
-  // };
-
-  // const initializePayment = usePaystackPayment(config);
-
-  // const validate = (values) => {
-  //   const errors = {};
-  //   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-
-  //   if (!values.fullname) {
-  //     errors.fullname = "Full name is required";
-  //   } else if (!values.phone) {
-  //     errors.phone = "Phone number is required";
-  //   } else if (!values.email) {
-  //     errors.email = "Email is required";
-  //   } else if (!regex.test(values.email)) {
-  //     errors.email = "This is not a valid email";
-  //   } else if (!values.gender) {
-  //     errors.gender = "Select your gender";
-  //     // } else if (!values.course) {
-  //     //     errors.course = "Select your course";
-  //     // }  else if (!values.schedule) {
-  //     //   errors.schedule = "Select preferred schedule";
-  //     // } else if (!values.address) {
-  //     //   errors.address = "Fill in your address";
-  //   } else {
-  //     //     Supabase.from("techtan")
-  //     // .upsert([
-  //     //   {
-  //     //     fullname: formData.fullname,
-  //     //     email: formData.email,
-  //     //     amount: amount,
-  //     //     metadata: formData,
-  //     //   },
-  //     // ])
-  //     // .then((response) => {
-  //     //   console.log(response);
-  //     //   navigate("/");
-  //     // });
-
-  //     initializePayment(onSuccess, onClose);
-  //   }
-  //   return errors;
-  // };
-
-  const handleAmountChange = (e) => {
-    setAmount(e.target.value);
-    // const selectedValue = e.target.value;
-    setFormData({
-      ...formData,
-      amount: amount,
-    });
-  };
-
-  const handleFinalSubmit = () => {
-    // initializePayment(onSuccess, onClose)
-    // handleSubmit();
-  };
 
   const { pathname } = useLocation();
 
@@ -251,30 +119,52 @@ const Enroll = () => {
   const [selectedText, setSelectedText] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
 
-  const handlepaymentPlanChange = (event) => {
-    let payment_plan = event.target.value;
-    setAmountBasedOnpaymentPlan(selectedCourse, payment_plan);
-    console.log(payment_plan);
-    setFormData({
-      ...formData,
-      payment: payment_plan, // Update payment option in form data
-    });
-    
-  }
+  const checkInputAgainstArray = (input) => referralCodes.includes(input);  
 
+  // Update amount based on selected course and payment plan  
+  function setAmountBasedOnPaymentPlan(selectedValue, selectedPayment) {  
+    const originalPrices = {  
+      productDesign: 175000,  
+      frontend: 250000,  
+      dc: 150000,  
+      backend: 300000,  
+      fullstack: 500000,  
+      datascience: 350000,  
+      dataAnalysis: 150000,  
+      cybersecurity: 250000,  
+      productmgt: 175000  
+      // Additional course prices...  
+    };  
 
-  const handleSelectChange = (event) => {
+    if (selectedPayment === 'full') {  
+      if (checkInputAgainstArray(inputValue)) {  
+        const discountedAmount = originalPrices[selectedValue] * 0.6;  
+        setAmount(discountedAmount);  
+        setFormData(prev => ({ ...prev, amount: discountedAmount }));  
+      } else {  
+        setAmount(originalPrices[selectedValue]);  
+        setFormData(prev => ({ ...prev, amount: originalPrices[selectedValue] }));  
+      }  
+    } else if (selectedPayment === 'part') {  
+      const halfAmount = originalPrices[selectedValue] * 0.5;  
+        setAmount(halfAmount);  
+        setFormData(prev => ({ ...prev, amount: halfAmount })); 
+        
+    }  
+  }  
+
+  const handleSelectChange = (event) => {  
+    const selectedValue = event.target.value; // Declare and initialize selectedValue first  
+    const selectedPayment = formData.payment; // Retrieve the current selected payment option  
+
+    setFormData(prev => ({ ...prev, course: selectedValue })); // Update formData with the selected course  
+
+    // Call the function to calculate the amount based on selected course and payment plan  
+    setAmountBasedOnPaymentPlan(selectedValue, selectedPayment);  
+    setIsModalOpen(!isModalOpen)
     setSelectedText(event.target.selectedOptions[0].textContent);
-    const selectedPayment = formData.payment; // Retrieve selected payment option from form data
 
-    const selectedValue = event.target.value;
-    
-    setSelectedCourse(selectedValue);
-
-    // if (selectedValue !== "") {
-    //   setIsModalOpen(!isModalOpen);
-    //   setAmount("00.00");
-    // }
+    setSelectedCourse(selectedValue)
 
     // Set showComponent1 and showComponent2 based on the selected option
     setProduct(selectedValue === "productDesign");
@@ -288,20 +178,22 @@ const Enroll = () => {
     setProductMgt(selectedValue === "productmgt");
     setFull(selectedPayment === "full");
     setPart(selectedPayment === "part");
+  };  
 
+  const handlePaymentPlanChange = (event) => {  
+    const selectedPayment = event.target.value;  
+    setFormData(prev => ({ ...prev, payment: selectedPayment }));  
+    setAmountBasedOnPaymentPlan(formData.course, selectedPayment); // Recalculate amount based on selected course  
+    setSelectedPaymentText(event.target.selectedOptions[0].textContent);
+  };  
 
-    setAmountBasedOnpaymentPlan(selectedValue, selectedPayment);
+  const handleInputChange = (event) => {  
+    setInputValue(event.target.value);  
+  };  
 
-    setFormData({
-      ...formData,
-      amount: amount,
-      course: selectedValue,
-    });
+ 
 
-   
   
-
-  };
 
   const handleReferralChange = (event) => {
     setFormData({
@@ -311,197 +203,165 @@ const Enroll = () => {
   };
 
 
-function existingCode(){
-  if(inputValue.length > 0){
-    // check if code is used
-console.log("started....")
-    Supabase.from("techtan")
-      .select()
-      .eq("code", inputValue)
-      .then((res) => {
-        console.log("fetched......")
-        if (res.data.length > 0) {
-          alert("Code has already been used");
-
-        }})
-      }
-}
- 
   
-function setAmountBasedOnpaymentPlan(selectedValue, selectedPayment){
-  // if (selectedPayment == "") {
-  //   alert('please choose a payment method')
 
-  // }else if (selectedValue == "") {
-  //   alert('please choose a course')
+  
+// function setAmountBasedOnpaymentPlan(selectedValue, selectedPayment){
+//   if (inputValue.trim() !== "" && !checkInputAgainstArray(inputValue)) {
+//     alert(inputValue + " is an invalid code")
+//     return;
+//   }
+//    else if (selectedValue === "productDesign" && selectedPayment === "full") {
+//     setAmount(175000); 
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  // }else
-
-  if (inputValue.trim() !== "" && !checkInputAgainstArray(inputValue)) {
-    alert(inputValue + " is an invalid code")
-    return;
-  }
-   else if (selectedValue === "productDesign" && selectedPayment === "full") {
-    setAmount(175000); 
-    setIsModalOpen(!isModalOpen);
-    return;
-
-  }else if (selectedValue === "productDesign" && selectedPayment === "full" && inputValue) {
+//   }else if (selectedValue === "productDesign" && selectedPayment === "full" && inputValue) {
     
-    setAmount(175000*0.6); 
-    setIsModalOpen(!isModalOpen);
-    return;
+//     setAmount(175000*0.6); 
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }else if (selectedValue === "frontend" && selectedPayment === "full") {
-    setAmount(250000);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }else if (selectedValue === "frontend" && selectedPayment === "full") {
+//     setAmount(250000);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }if (selectedValue === "frontend" && selectedPayment === "full" && inputValue) {
-    setAmount(250000*0.6);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }if (selectedValue === "frontend" && selectedPayment === "full" && inputValue) {
+//     setAmount(250000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }else if (selectedValue === "dc" && selectedPayment === "full") {
-    setAmount(150000);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }else if (selectedValue === "dc" && selectedPayment === "full") {
+//     setAmount(150000);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }if (selectedValue === "dc" && selectedPayment === "full" && inputValue) {
-    setAmount(150000*0.6);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }if (selectedValue === "dc" && selectedPayment === "full" && inputValue) {
+//     setAmount(150000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  } else if (selectedValue === "backend" && selectedPayment === "full") {
-    setAmount(300000);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   } else if (selectedValue === "backend" && selectedPayment === "full") {
+//     setAmount(300000);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }if (selectedValue === "backend" && selectedPayment === "full" && inputValue) {
-    setAmount(300000*0.6);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }if (selectedValue === "backend" && selectedPayment === "full" && inputValue) {
+//     setAmount(300000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }else if (selectedValue === "fullstack" && selectedPayment === "full") {
-    setAmount(500000);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }else if (selectedValue === "fullstack" && selectedPayment === "full") {
+//     setAmount(500000);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }if (selectedValue === "fullstack" && selectedPayment === "full" && inputValue) {
-    setAmount(500000*0.6);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }if (selectedValue === "fullstack" && selectedPayment === "full" && inputValue) {
+//     setAmount(500000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }else if (selectedValue === "datascience" && selectedPayment === "full") {
-    setAmount(350000);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }else if (selectedValue === "datascience" && selectedPayment === "full") {
+//     setAmount(350000);
+//     setIsModalOpen(!isModalOpen);
+//     return;
 
-  }if (selectedValue === "datascience" && selectedPayment === "full" && inputValue) {
-    setAmount(350000*0.6);
-    setIsModalOpen(!isModalOpen);
-    return;
+//   }if (selectedValue === "datascience" && selectedPayment === "full" && inputValue) {
+//     setAmount(350000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//     return;
     
-  }else if (selectedValue === "dataAnalysis" && selectedPayment === "full") {
-    setAmount(150000);
-    setIsModalOpen(!isModalOpen);
-  }if (selectedValue === "dataAnalysis" && selectedPayment === "full" && inputValue) {
-    setAmount(150000*0.6);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "cybersecurity" && selectedPayment === "full") {
-    setAmount(250000);
-    setIsModalOpen(!isModalOpen);
-  }if (selectedValue === "cybersecurity" && selectedPayment === "full" && inputValue) {
-    setAmount(250000*0.6);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "productmgt" && selectedPayment === "full") {
-    setAmount(175000);
-    setIsModalOpen(!isModalOpen);
-  }if (selectedValue === "productmgt" && selectedPayment === "full" && inputValue) {
-    setAmount(175000*0.6);
-    setIsModalOpen(!isModalOpen);
-  } else if (selectedValue === "productDesign" && selectedPayment === "part" && inputValue) {
-    setAmount(90000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "dataAnalysis" && selectedPayment === "full") {
+//     setAmount(150000);
+//     setIsModalOpen(!isModalOpen);
+//   }if (selectedValue === "dataAnalysis" && selectedPayment === "full" && inputValue) {
+//     setAmount(150000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "cybersecurity" && selectedPayment === "full") {
+//     setAmount(250000);
+//     setIsModalOpen(!isModalOpen);
+//   }if (selectedValue === "cybersecurity" && selectedPayment === "full" && inputValue) {
+//     setAmount(250000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "productmgt" && selectedPayment === "full") {
+//     setAmount(175000);
+//     setIsModalOpen(!isModalOpen);
+//   }if (selectedValue === "productmgt" && selectedPayment === "full" && inputValue) {
+//     setAmount(175000*0.6);
+//     setIsModalOpen(!isModalOpen);
+//   } else if (selectedValue === "productDesign" && selectedPayment === "part" && inputValue) {
+//     setAmount(90000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
 
-  }else if (selectedValue === "frontend" && selectedPayment === "part" && inputValue) {
-    setAmount(125000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "dc" && selectedPayment === "part" && inputValue) {
-    setAmount(75000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  } else if (selectedValue === "backend" && selectedPayment === "part" && inputValue) {
-    setAmount(150000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "fullstack" && selectedPayment === "part" && inputValue) {
-    setAmount(250000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "datascience" && selectedPayment === "part" && inputValue) {
-    setAmount(175000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "dataAnalysis" && selectedPayment === "part" && inputValue) {
-    setAmount(75000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "cybersecurity" && selectedPayment === "part" && inputValue) {
-    setAmount(125000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "productmgt" && selectedPayment === "part" && inputValue) {
-    setAmount(88000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "productDesign" && selectedPayment === "part" && inputValue) {
-    setAmount(90000);
-    alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
-    setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "frontend" && selectedPayment === "part" && inputValue) {
+//     setAmount(125000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "dc" && selectedPayment === "part" && inputValue) {
+//     setAmount(75000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   } else if (selectedValue === "backend" && selectedPayment === "part" && inputValue) {
+//     setAmount(150000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "fullstack" && selectedPayment === "part" && inputValue) {
+//     setAmount(250000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "datascience" && selectedPayment === "part" && inputValue) {
+//     setAmount(175000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "dataAnalysis" && selectedPayment === "part" && inputValue) {
+//     setAmount(75000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "cybersecurity" && selectedPayment === "part" && inputValue) {
+//     setAmount(125000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "productmgt" && selectedPayment === "part" && inputValue) {
+//     setAmount(88000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "productDesign" && selectedPayment === "part" && inputValue) {
+//     setAmount(90000);
+//     alert("Referral code is only applicable for full payment, refresh and input code again with full payment plan.");
+//     setIsModalOpen(!isModalOpen);
 
-  }else if (selectedValue === "productDesign" && selectedPayment === "part") {
-    setAmount(90000);
-    setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "productDesign" && selectedPayment === "part") {
+//     setAmount(90000);
+//     setIsModalOpen(!isModalOpen);
 
-  } else if (selectedValue === "frontend" && selectedPayment === "part") {
-    setAmount(125000);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "dc" && selectedPayment === "part") {
-    setAmount(75000);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "backend" && selectedPayment === "part") {
-    setAmount(150000);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "fullstack" && selectedPayment === "part") {
-    setAmount(250000);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "datascience" && selectedPayment === "part") {
-    setAmount(175000);
-    setIsModalOpen(!isModalOpen);
-  } else if (selectedValue === "dataAnalysis" && selectedPayment === "part") {
-    setAmount(75000);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "cybersecurity" && selectedPayment === "part") {
-    setAmount(125000);
-    setIsModalOpen(!isModalOpen);
-  }else if (selectedValue === "productmgt" && selectedPayment === "part") {
-    setAmount(88000);
-    setIsModalOpen(!isModalOpen);
-  }
-}
-
-
-
-  // const handleUpload = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     course: e.target.value,
-  //   });
-  // };
-
+//   } else if (selectedValue === "frontend" && selectedPayment === "part") {
+//     setAmount(125000);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "dc" && selectedPayment === "part") {
+//     setAmount(75000);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "backend" && selectedPayment === "part") {
+//     setAmount(150000);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "fullstack" && selectedPayment === "part") {
+//     setAmount(250000);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "datascience" && selectedPayment === "part") {
+//     setAmount(175000);
+//     setIsModalOpen(!isModalOpen);
+//   } else if (selectedValue === "dataAnalysis" && selectedPayment === "part") {
+//     setAmount(75000);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "cybersecurity" && selectedPayment === "part") {
+//     setAmount(125000);
+//     setIsModalOpen(!isModalOpen);
+//   }else if (selectedValue === "productmgt" && selectedPayment === "part") {
+//     setAmount(88000);
+//     setIsModalOpen(!isModalOpen);
+//   }
+// }
   function closeModal() {
     setIsModalOpen(false);
   }
@@ -784,73 +644,57 @@ function setAmountBasedOnpaymentPlan(selectedValue, selectedPayment){
             </p> */}
           </label>
 
-          <label>
-              <p>Referral code:</p>
-                <div>
-                  <input
-                    type="text"
-                    // value={formData.referralCode}
-                    // onChange={handleReferralChange}
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    placeholder="Get 40% discount of the course full price with a referral code"
-                  />
-              </div>
-              </label>
+         
 
-          {course ? (
-            <>
-              <label htmlFor="course">
-                <p>Courses:</p>
-                <div>
-                  <select id="selectOption" onChange={handleSelectChange}>
-                    <option value="">Select Course</option>
-                    <option value="productDesign">Product Design</option>
-                    <option value="dc">
-                      Digital Marketing & Content Creation
-                    </option>
-                    <option value="frontend">Frontend Development</option>
-                    <option value="backend">Backend Development</option>
-                    <option value="dataAnalysis">Data Analysis</option>
-                    <option value="datascience">Data Science</option>
-                    <option value="fullstack">Fullstack Web Developmaent</option>
-                    <option value="cybersecurity">Cybersecurity</option>
-                    <option value="productmgt">Product Management</option>
-                  </select>
-                </div>
-              </label>
-            </>
-          ) : null}
+          <label>  
+        <p>Referral code:</p>  
+        <div>
 
-            
+        
+          <input  
+            type="text"  
+            value={inputValue}  
+            onChange={handleInputChange}  
+            placeholder="Get 40% discount of the course full price with a referral code"  
+          /> 
+        </div> 
+      </label>  
 
-          <label htmlFor="course">
-                <p>Payment Plan:</p>
-                <div>
-                <select
-                    id="payment"
-                    value={formData.payment} // Bind value to form data
-                    onChange={handlepaymentPlanChange}
-                  >
-                    <option value=''>Select payment plan</option>
-                    <option value="full">Full payment</option>
-                    <option value="part">Part payment</option>
-                  </select>
-                </div>
+      <label htmlFor="payment">  
+        <p>Payment Plan:</p> 
+        <div> 
+          <select id="payment" value={formData.payment} onChange={handlePaymentPlanChange}>  
+            <option value=''>Select payment plan</option>  
+            <option value="full">Full payment</option>  
+            <option value="part">Part payment</option>  
+          </select>  
+        </div>
+      </label>  
 
-              </label>
+      <label htmlFor="course">  
+        <p>Courses:</p> 
+        <div> 
+          <select id="selectOption" onChange={handleSelectChange}>  
+            <option value="">Select Course</option>  
+            <option value="productDesign">Product Design</option>  
+            <option value="dc">Digital Marketing & Content Creation</option>  
+            <option value="frontend">Frontend Development</option>  
+            <option value="backend">Backend Development</option>  
+            <option value="dataAnalysis">Data Analysis</option>  
+            <option value="datascience">Data Science</option>  
+            <option value="fullstack">Fullstack Web Development</option>  
+            <option value="cybersecurity">Cybersecurity</option>  
+            <option value="productmgt">Product Management</option>  
+          </select>  
+        </div>
+      </label>  
 
-          <label htmlFor="course">
-            <p>Amount:</p>
-            <div>
-              <input
-                type="text"
-                value={amount}
-                onChange={handleAmountChange}
-                disabled
-              />
-            </div>
-          </label>
+      <label htmlFor="amount">  
+        <p>Amount:</p>  
+        <div>
+          <input type="text" value={amount} readOnly />  
+        </div>
+      </label>  
 
           {/* <label htmlFor="learning">
                     <p>Learning:</p>
@@ -879,6 +723,9 @@ function setAmountBasedOnpaymentPlan(selectedValue, selectedPayment){
                     </h4>
                     <h4>
                       Amount: <span>{amount}</span>
+                    </h4>
+                    <h4>
+                      Payment Plan: <span>{selectedPayment}</span>
                     </h4>
                     <h4>
                       Schedule: <span>{scheduleText}</span>
@@ -914,7 +761,7 @@ function setAmountBasedOnpaymentPlan(selectedValue, selectedPayment){
               }}
             >
               <h5>Cohort 1</h5>
-              <p>Classes Begin: 1st November, 2024</p>
+              <p>Classes Begin: 17th February, 2025</p>
               <button
                 type="button"
                 onClick={() => {
@@ -935,7 +782,7 @@ function setAmountBasedOnpaymentPlan(selectedValue, selectedPayment){
               }}
             >
               <h5>Cohort 2</h5>
-              <p>Classes Begin: 13th January, 2025</p>
+              <p>Classes Begin: 14th April, 2025</p>
               <button
                 type="button"
                 onClick={() => {
@@ -956,7 +803,7 @@ function setAmountBasedOnpaymentPlan(selectedValue, selectedPayment){
               }}
             >
               <h5>Cohort 3</h5>
-              <p>Classes Begin: 1st March, 2025</p>
+              <p>Classes Begin: 7th July, 2025</p>
               <button
                 type="button"
                 onClick={() => {
