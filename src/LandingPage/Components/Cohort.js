@@ -17,7 +17,7 @@ const Cohort = () => {
             
             >
               <h5>Cohort 1</h5>
-              <p>Classes Begin: 1st November, 2024</p>
+              <p>Classes Begin: 12th May, 2025</p>
               <Link  to='/enroll'><button
                 type="button"
                 
@@ -32,7 +32,7 @@ const Cohort = () => {
               
             >
               <h5>Cohort 2</h5>
-              <p>Classes Begin: 13th January, 2025</p>
+              <p>Classes Begin: 14th July, 2025</p>
               <Link to='/enroll'><button
                 type="button"
                 
@@ -47,7 +47,7 @@ const Cohort = () => {
             
             >
               <h5>Cohort 3</h5>
-              <p>Classes Begin: 1st March, 2025</p>
+              <p>Classes Begin: 8th September, 2025</p>
               <Link to='/enroll'><button
                 type="button"
                 
