@@ -761,7 +761,7 @@ const Enroll = () => {
               }}
             >
               <h5>Cohort 1</h5>
-              <p>Classes Begin: 17th February, 2025</p>
+              <p>Classes Begin: 12th May, 2025</p>
               <button
                 type="button"
                 onClick={() => {
@@ -782,7 +782,7 @@ const Enroll = () => {
               }}
             >
               <h5>Cohort 2</h5>
-              <p>Classes Begin: 14th April, 2025</p>
+              <p>Classes Begin: 14th July, 2025</p>
               <button
                 type="button"
                 onClick={() => {
@@ -803,7 +803,7 @@ const Enroll = () => {
               }}
             >
               <h5>Cohort 3</h5>
-              <p>Classes Begin: 7th July, 2025</p>
+              <p>Classes Begin: 8th September, 2025</p>
               <button
                 type="button"
                 onClick={() => {
