@@ -517,7 +517,7 @@ const BlockchainEnroll = () => {
             }}
           >
             <h5>Cohort 1</h5>
-            <p>Classes Begin: 1st October, 2024</p>
+            <p>Classes Begin: 14th July, 2025</p>
             <button
               type="button"
               onClick={() => {
@@ -538,7 +538,7 @@ const BlockchainEnroll = () => {
             }}
           >
             <h5>Cohort 2</h5>
-            <p>Classes Begin: 1st February, 2025</p>
+            <p>Classes Begin: 8th September, 2025</p>
             <button
               type="button"
               onClick={() => {
